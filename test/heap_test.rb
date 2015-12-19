@@ -18,6 +18,31 @@ class HeapTest < Minitest::Test
     assert_equal Heap, pile.class
   end
 
+  def test_create_blank_heap
+    skip
+    args = {operand: ">="}
+    pile.create(args)
+    assert_equal [], pile.heap
+  end
+
+  def test_create_one_item_on_heap
+    skip
+    args = {operand: ">="}
+    pile.create(args)
+    pile.insert(10)
+    assert_equal [10], pile.heap
+  end
+
+  def test_create_three_item_on_heap
+    skip
+    args = {operand: ">="}
+    pile.create(args)
+    pile.insert(10)
+    pile.insert(11)
+    pile.insert(5)
+    assert_equal [10], pile.heap
+  end
+
   def test_insert_creation_max_heap
     skip
     args = {operand: ">="}

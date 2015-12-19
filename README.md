@@ -1,6 +1,6 @@
 ## Heap
 
-A heap falls with in the family of trees-based data structures.
+A heap falls with in the family of tree-based data structures.
 
 A heap can be useful for efficient sorting (heapsort), priority queues (like a stack) and locating a minimum or maximum in constant time
 
