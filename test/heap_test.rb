@@ -8,28 +8,23 @@ class HeapTest < Minitest::Test
   attr_reader :pile, :binarytree
 
   def setup
-    skip
     @pile = Heap.new
-    @binarytree = CompleteBinaryTree.new
   end
 
   def test_create_class
-    skip
     assert_equal Heap, pile.class
   end
 
   def test_create_blank_heap
-    skip
     args = {operand: ">="}
     pile = Heap.new(args)
     assert_equal [], pile.heap
   end
 
   def test_read_in_heap
-    skip
-    args = {operand: ">=", heap: [10,1,5]}
+    args = {operand: ">=", heap: [10, 1, 5]}
     pile = Heap.new(args)
-    assert_equal [], pile.heap
+    assert_equal [10, 1, 5], pile.heap
   end
 
   def test_create_one_item_on_heap
