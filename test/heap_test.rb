@@ -10,7 +10,7 @@ class HeapTest < Minitest::Test
   def setup
     skip
     @pile = Heap.new
-    @binarytree = BinaryTree.new
+    @binarytree = CompleteBinaryTree.new
   end
 
   def test_create_class
@@ -21,14 +21,21 @@ class HeapTest < Minitest::Test
   def test_create_blank_heap
     skip
     args = {operand: ">="}
-    pile.create(args)
+    pile = Heap.new(args)
+    assert_equal [], pile.heap
+  end
+
+  def test_read_in_heap
+    skip
+    args = {operand: ">=", heap: [10,1,5]}
+    pile = Heap.new(args)
     assert_equal [], pile.heap
   end
 
   def test_create_one_item_on_heap
     skip
     args = {operand: ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     pile.insert(10)
     assert_equal [10], pile.heap
   end
@@ -36,7 +43,7 @@ class HeapTest < Minitest::Test
   def test_create_three_item_on_heap
     skip
     args = {operand: ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     pile.insert(10)
     pile.insert(11)
     pile.insert(5)
@@ -46,7 +53,7 @@ class HeapTest < Minitest::Test
   def test_insert_creation_max_heap
     skip
     args = {operand: ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     pile.insert(5)
     pile.insert(9)
     pile.insert(10)
@@ -56,7 +63,7 @@ class HeapTest < Minitest::Test
   def test_insert_creation_min_heap
     skip
     args = {operand: "<="}
-    pile.create(args)
+    pile = Heap.new(args)
     pile.insert(10)
     pile.insert(9)
     pile.insert(5)
@@ -69,7 +76,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(9)
     binarytree.insert(10)
     args = {:tree => binarytree, :operand => ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     assert_equal [10, 9, 5], pile.heap
   end
 
@@ -79,7 +86,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(9)
     binarytree.insert(5)
     args = {:tree => binarytree, :operand => "<="}
-    pile.create(args)
+    pile = Heap.new(args)
     assert_equal [5, 9, 10], pile.heap
   end
 
@@ -92,7 +99,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(98)
     binarytree.insert(1)
     args = {:tree => binarytree, :operand => ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     assert_equal [98, 52, 5, 10, 9, 1], pile.heap
   end
 
@@ -105,7 +112,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(98)
     binarytree.insert(1)
     args = {:tree => binarytree, :operand => "<="}
-    pile.create(args)
+    pile = Heap.new(args)
     assert_equal [1, 9, 5, 52, 98, 10], pile.heap
   end
 
@@ -115,7 +122,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(9)
     binarytree.insert(10)
     args = {:tree => binarytree, :operand => ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     assert_equal 9, pile.extract(9)
   end
 
@@ -125,7 +132,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(9)
     binarytree.insert(5)
     args = {:tree => binarytree, :operand => "<="}
-    pile.create(args)
+    pile = Heap.new(args)
     assert_equal 9, pile.extract(9)
   end
 
@@ -138,7 +145,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(98)
     binarytree.insert(1)
     args = {:tree => binarytree, :operand => ">="}
-    pile.create(args)
+    pile = Heap.new(args)
     pile.extract(52)
     assert_equal [98, 10, 5, 1, 9], pile.heap
   end
@@ -152,7 +159,7 @@ class HeapTest < Minitest::Test
     binarytree.insert(98)
     binarytree.insert(1)
     args = {:tree => binarytree, :operand => "<="}
-    pile.create(args)
+    pile = Heap.new(args)
     pile.extract(9)
     assert_equal [1, 10, 5, 52, 98], pile.heap
   end

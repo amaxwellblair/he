@@ -1,47 +1,53 @@
 $LOAD_PATH.unshift('../lib/')
 require 'simplecov'
 SimpleCov.start
-require 'binarytree'
+require 'complete_binary_tree'
 require 'minitest'
 
-class BinaryTreeTest < Minitest::Test
+class CompleteBinaryTreeTest < Minitest::Test
   attr_reader :binarytree
 
   def setup
-    skip
-    @binarytree = BinaryTree.new
+    @binarytree = CompleteBinaryTree.new
   end
 
   def test_create_class
-    skip
-    assert_equal BinaryTree, pile.class
+    assert_equal CompleteBinaryTree, binarytree.class
   end
 
   def test_create_binary_tree
-    skip
-    binarytree.create
     assert_equal [], binarytree.tree
   end
 
-  def test_create_binary_tree_root
-    skip
-    binarytree.create
+  def test_create_binary_tree_with_arguments
+    binarytree = CompleteBinaryTree.new([1,9,9])
+    assert_equal [1,9,9], binarytree.tree
+  end
+
+  def test_insert_binary_tree_root
     binarytree.insert(9)
     assert_equal [9], binarytree.tree
   end
 
-  def test_create_binary_tree_root_and_some_leaves
-    skip
-    binarytree.create
+  def test_insert_binary_tree_root_and_some_leaves
     binarytree.insert(9)
     binarytree.insert(10)
     binarytree.insert(11)
     assert_equal [9,10,11], binarytree.tree
   end
 
+  def test_extract_binary_tree
+    binarytree.insert(10)
+    binarytree.insert(9)
+    binarytree.insert(5)
+    binarytree.insert(52)
+    binarytree.insert(98)
+    binarytree.insert(1)
+    binarytree.extract(9)
+    assert_equal [10, 1, 5, 52, 98], binarytree.tree
+  end
+
   def test_perfect_tree_true
-    skip
-    binarytree.create
     binarytree.insert(9)
     binarytree.insert(10)
     binarytree.insert(11)
@@ -49,8 +55,6 @@ class BinaryTreeTest < Minitest::Test
   end
 
   def test_perfect_tree_false
-    skip
-    binarytree.create
     binarytree.insert(9)
     binarytree.insert(10)
     assert_equal false, binarytree.perfect_tree?
