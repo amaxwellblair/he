@@ -12,7 +12,7 @@ class Heap
       @heapie = args.fetch(:heap, [])
       @tree = []
     else
-      @heapie = heap_balance(args[:tree])
+      @heapie = heap_balance(args[:tree].tree)
     end
   end
 
@@ -29,19 +29,42 @@ class Heap
     heap_balance
   end
 
+  def extract num
+    heapie[heapie.index(num)] = heapie.pop
+    heap_balance
+    num
+  end
+
   def heap_balance (heap = heapie)
-    if balanced?(heap)
-      return heap
+    if is_balanced?(heap)
+      heap
     else
-      heap.length.times do |index|
-        if operand(heap[index], heap[parent(index)])
-          bubble_up(heap, index)
+      heapify(heap)
+      heap_balance(heap)
+    end
+  end
+
+  def heapify(heap)
+    heap.length.times do |index|
+      if operand(heap[index], heap[parent(index)])
+        if (parent(index) - index) == 2 || heap[index+1].nil?
+          swap(heap, index)
+        elsif operand(heap[index+1], heap[index])
+          swap(heap, index+1)
+        else
+          swap(heap, index)
         end
       end
     end
   end
 
-  def balanced?(heap)
+  def swap(heap, index)
+    swap = heap[parent(index)]
+    heap[parent(index)] = heap[index]
+    heap[index] = swap
+  end
+
+  def is_balanced?(heap)
     heap.length.times do |index|
       parent_index = (index - 1).abs / 2
       if operand(heap[index], heap[parent_index])
@@ -50,6 +73,5 @@ class Heap
     end
     true
   end
-
 
 end

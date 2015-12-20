@@ -9,6 +9,7 @@ class HeapTest < Minitest::Test
 
   def setup
     @pile = Heap.new
+    @binarytree = CompleteBinaryTree.new
   end
 
   def test_create_class
@@ -37,29 +38,42 @@ class HeapTest < Minitest::Test
   def test_balanced_true_max_heap
     args = {operand: lambda{|x,y| x > y}, heap: [10, 1, 5]}
     pile = Heap.new(args)
-    assert_equal true, pile.balanced?(pile.heapie)
+    assert_equal true, pile.is_balanced?(pile.heapie)
   end
 
   def test_balanced_false_max_heap
     args = {operand: lambda{|x,y| x > y}, heap: [1, 10, 5,]}
     pile = Heap.new(args)
-    assert_equal false, pile.balanced?(pile.heapie)
+    assert_equal false, pile.is_balanced?(pile.heapie)
   end
 
   def test_balanced_true_min_heap
     args = {operand: lambda{|x,y| x < y}, heap: [1, 1, 5]}
     pile = Heap.new(args)
-    assert_equal true, pile.balanced?(pile.heapie)
+    assert_equal true, pile.is_balanced?(pile.heapie)
   end
 
   def test_balanced_false_min_heap
     args = {operand: lambda{|x,y| x < y}, heap: [10, 11, 5,]}
     pile = Heap.new(args)
-    assert_equal false, pile.balanced?(pile.heapie)
+    assert_equal false, pile.is_balanced?(pile.heapie)
+  end
+
+  def test_balance_min_heap_three
+    args = {operand: lambda{|x,y| x < y}, heap: [10, 11, 5,]}
+    pile = Heap.new(args)
+    pile.heap_balance
+    assert_equal true, pile.is_balanced?(pile.heapie)
+  end
+
+  def test_balance_max_heap_three
+    args = {operand: lambda{|x,y| x < y}, heap: [10, 11, 5,]}
+    pile = Heap.new(args)
+    pile.heap_balance
+    assert_equal true, pile.is_balanced?(pile.heapie)
   end
 
   def test_create_three_item_on_heap
-    skip
     args = {operand: lambda{|x,y| x > y}}
     pile = Heap.new(args)
     pile.insert(10)
@@ -69,27 +83,24 @@ class HeapTest < Minitest::Test
   end
 
   def test_insert_creation_max_heap
-    skip
     args = {operand: lambda{|x,y| x > y}}
     pile = Heap.new(args)
     pile.insert(5)
     pile.insert(9)
     pile.insert(10)
-    assert_equal [10, 9, 5], pile.heapie
+    assert_equal [10, 5, 9], pile.heapie
   end
 
   def test_insert_creation_min_heap
-    skip
     args = {operand: lambda{|x,y| x < y}}
     pile = Heap.new(args)
     pile.insert(10)
     pile.insert(9)
     pile.insert(5)
-    assert_equal [5, 9, 10], pile.heapie
+    assert_equal [5, 10, 9], pile.heapie
   end
 
   def test_create_from_bintree_max_heap_small
-    skip
     binarytree.insert(5)
     binarytree.insert(9)
     binarytree.insert(10)
@@ -99,7 +110,6 @@ class HeapTest < Minitest::Test
   end
 
   def test_create_from_bintree_min_heap_small
-    skip
     binarytree.insert(10)
     binarytree.insert(9)
     binarytree.insert(5)
@@ -109,7 +119,6 @@ class HeapTest < Minitest::Test
   end
 
   def test_create_from_bintree_max_heap_large
-    skip
     binarytree.insert(10)
     binarytree.insert(9)
     binarytree.insert(5)
@@ -122,7 +131,6 @@ class HeapTest < Minitest::Test
   end
 
   def test_create_from_bintree_min_heap
-    skip
     binarytree.insert(10)
     binarytree.insert(9)
     binarytree.insert(5)
@@ -135,7 +143,6 @@ class HeapTest < Minitest::Test
   end
 
   def test_extract_max_heap_small_return_value
-    skip
     binarytree.insert(5)
     binarytree.insert(9)
     binarytree.insert(10)
@@ -144,18 +151,7 @@ class HeapTest < Minitest::Test
     assert_equal 9, pile.extract(9)
   end
 
-  def test_extract_min_heap_small_return_value
-    skip
-    binarytree.insert(10)
-    binarytree.insert(9)
-    binarytree.insert(5)
-    args = {:tree => binarytree, :operand => lambda{|x,y| x < y}}
-    pile = Heap.new(args)
-    assert_equal 9, pile.extract(9)
-  end
-
   def test_extract_max_heap_large
-    skip
     binarytree.insert(10)
     binarytree.insert(9)
     binarytree.insert(5)
@@ -169,7 +165,6 @@ class HeapTest < Minitest::Test
   end
 
   def test_extract_min_heap_large
-    skip
     binarytree.insert(10)
     binarytree.insert(9)
     binarytree.insert(5)
