@@ -20,18 +20,25 @@ class Heap
     @operand.call(x, y)
   end
 
+  def parent(index)
+    (index - 1).abs / 2
+  end
+
   def insert num
     heapie.push(num)
     heap_balance
   end
 
   def heap_balance (heap = heapie)
-    heap.each do |element|
-      if balanced?(heap)
-        return heap
-      else
-        #recursive code
+    if balanced?(heap)
+      return heap
+    else
+      heap.length.times do |index|
+        if operand(heap[index], heap[parent(index)])
+          bubble_up(heap, index)
+        end
       end
+    end
   end
 
   def balanced?(heap)
