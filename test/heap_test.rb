@@ -177,5 +177,12 @@ class HeapTest < Minitest::Test
     assert_equal [1, 10, 5, 52, 98], pile.heapie
   end
 
+  def test_edge_cases
+    skip
+    #same number twice; inserting: nil, blank, non-fixnum, etc; extracting a
+    # number that does not exist; Maybe inherit some of the binary tree
+    # attributes...
+  end
+
 
 end
