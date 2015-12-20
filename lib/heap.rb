@@ -25,18 +25,24 @@ class Heap
   end
 
   def insert num
-    heapie.push(num)
-    heap_balance
+    if data_valid?(num)
+      heapie.push(num)
+      heap_balance
+    end
   end
 
   def extract num
-    heapie[heapie.index(num)] = heapie.pop
-    heap_balance
-    num
+    if heapie.include?(num)
+      heapie[heapie.index(num)] = heapie.pop
+      heap_balance
+      num
+    else
+      puts "Data does not exist in current heap"
+    end
   end
 
   def heap_balance (heap = heapie)
-    if is_balanced?(heap)
+    if balanced?(heap)
       heap
     else
       heapify(heap)
@@ -64,14 +70,19 @@ class Heap
     heap[index] = swap
   end
 
-  def is_balanced?(heap)
+  def balanced?(heap)
     heap.length.times do |index|
       parent_index = (index - 1).abs / 2
-      if operand(heap[index], heap[parent_index])
-        return false
-      end
+      return false if operand(heap[index], heap[parent_index])
     end
     true
   end
 
+  def data_valid?(data)
+    if data.class == Fixnum
+      true
+    else
+      puts "Invalid data"
+    end
+  end
 end

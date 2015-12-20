@@ -60,4 +60,22 @@ class CompleteBinaryTreeTest < Minitest::Test
     assert_equal false, binarytree.perfect_tree?
   end
 
+  def test_insert_same_number
+    binarytree.insert(9)
+    binarytree.insert(9)
+    assert_equal [9, 9], binarytree.tree
+  end
+
+  def test_insert_nil
+    binarytree.insert(9)
+    binarytree.insert(nil)
+    assert_equal [9], binarytree.tree
+  end
+
+  def test_insert_not_fixnum
+    binarytree.insert(9)
+    binarytree.insert("a")
+    assert_equal [9], binarytree.tree
+  end
+
 end

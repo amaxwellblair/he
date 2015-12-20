@@ -7,7 +7,7 @@ class CompleteBinaryTree
   end
 
   def insert num
-    tree << num
+    tree << num if data_valid?(num)
   end
 
   def extract num
@@ -27,6 +27,14 @@ class CompleteBinaryTree
       perfect_num = perfect_num * 2 + 1
     end
     false
+  end
+
+  def data_valid?(data)
+    if data.class == Fixnum
+      true
+    else
+      puts "Invalid data"
+    end
   end
 
 end
