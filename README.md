@@ -46,7 +46,7 @@ top of heap - >  10
            30   25 45   80
 ```
 
-Due to the unordered nature of heaps readjustments will occur when inserting or deleting nodes.
+Due to the unordered nature of heaps rebalancing will occur when inserting or deleting nodes.
 
 For example if 1000 was inserted into the previous max-heap:
 
@@ -89,12 +89,15 @@ top of heap - >  100
          /
         10
 ```
+**Heap sort**
 
+Heap sort is an efficient algorithm to sort an array. It is typically implemented on a max-heap by removing the node at the top of the heap and rebalancing.
 
 ### Implementation Tips
 
-* Binary heaps are typically implemented within an array
+* Binary heaps are typically implemented with an array
   * Ex: [1000, 100, 40, 20, 15, 32, 8, 10]
-* They are adjusted using shifting (moving the contents of the given array around)
+* They are adjusted by shifting the contents of the array around
 * The heap property does not lend itself to creation by insertion (like a binary search tree)
-  * Creation by insertion is suboptimal versus rearranging an already complete binary tree
+  * Creation by insertion is suboptimal versus rearranging an already 'complete' binary tree
+* A well implemented heap should sort as it implements the heap and shape property
