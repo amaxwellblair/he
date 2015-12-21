@@ -12,7 +12,7 @@ class Heap
       @heapie = args.fetch(:heap, [])
       @tree = []
     else
-      @heapie = heap_balance(args[:tree].tree)
+      @heapie = balance(args[:tree].tree)
     end
   end
 
@@ -27,26 +27,42 @@ class Heap
   def insert num
     if data_valid?(num)
       heapie.push(num)
-      heap_balance
+      balance
+    end
+  end
+
+  def sort (heap = heapie)
+    if operand(1, 2)
+      sort_min(heap)
+    else
+      sort_min(heap).reverse
+    end
+  end
+
+  def sort_min (heap = heapie)
+    modified_heap = heap.dup
+    modified_heap.length.times.map do
+      balance(modified_heap)
+      modified_heap.shift
     end
   end
 
   def extract num
     if heapie.include?(num)
       heapie[heapie.index(num)] = heapie.pop
-      heap_balance
+      balance
       num
     else
       puts "Data does not exist in current heap"
     end
   end
 
-  def heap_balance (heap = heapie)
+  def balance (heap = heapie)
     if balanced?(heap)
       heap
     else
       heapify(heap)
-      heap_balance(heap)
+      balance(heap)
     end
   end
 
